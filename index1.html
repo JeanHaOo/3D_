@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<script type="text/javascript" src="js/jquery-1.9.1.min.js" ></script>
+		<style>
+			*{padding:0;margin:0}
+			#box{width:560px;height:300px;margin:150px auto;position:relative;background:#f60;}
+			#box .item_list{width:112px;height:100%;position:absolute;transform-style:preserve-3d ;transition: 1s all;}
+			#box .item_list .img{width:100%;height:100%;position: absolute;}
+			#box .item_list .img:first-child{background:url(img/1.png) no-repeat;transform:rotateX(0deg) translateZ(150px);}
+			#box .item_list .img:nth-child(2){background:url(img/2.png) no-repeat;transform:rotateX(-90deg) translateZ(150px);}
+			#box .item_list .img:nth-child(3){background:url(img/3.png) no-repeat;transform:rotateX(-180deg) translateZ(150px);}
+			#box .item_list .img:last-child{background:url(img/4.png) no-repeat;transform:rotateX(-270deg) translateZ(150px);}
+			#box .btn .prev,.next {position: absolute;top:40%;background:#666;width:70px;height:70px;opacity:.6;font-size:40px;line-height:70px;
+			          cursor:pointer;color:orange;text-align: center;}
+			 #prev{left:0;} 
+			 #next{right:0;} 
+		</style>
+		<script>
+			$(function(){
+				var num=0;
+				//设置各个item的left的值
+				$("#box .item_list").each(function(index,element){
+					$(this).css({"left":$(this).width()*index+"px",
+					             "transition-delay":index*0.3+"s"
+					           
+					          })
+				//设置背景图里面的position的值
+				 $(this).find(".img").css("background-position",-$(this).width()*index+"px")
+				})
+				//点击下一个
+				$("#next").on("click",function(){
+					num++
+					$("#box .item_list").css('transform',"rotateX(" + (num * 90) + "deg)");
+				})
+				$("#prev").on("click",function(){
+					num--
+					$("#box .item_list").css("transform","rotateX(" + (num * 90) + "deg)");
+				})
+				//自动播放
+				//var time=2500
+				var timer=setInterval(auto,2000)
+				function auto(){
+					num++
+					$("#box .item_list").css("transform","rotateX(" + (num* 90) + "deg)");
+				}
+				$("#box").hover(function(){
+					clearInterval(timer)
+				},function(){
+					timer=setInterval(auto,2000)
+				})
+				
+			})
+		</script>
+		
+	</head>
+	<body>
+		<div id="box">
+			<div class="item_list">
+				<div class="img"></div>
+				<div class="img"></div>
+				<div class="img"></div>
+				<div class="img"></div>
+			</div>
+			<div class="item_list">
+				<div class="img"></div>
+				<div class="img"></div>
+				<div class="img"></div>
+				<div class="img"></div>
+			</div>
+			<div class="item_list">
+				<div class="img"></div>
+				<div class="img"></div>
+				<div class="img"></div>
+				<div class="img"></div>
+			</div>
+			<div class="item_list">
+				<div class="img"></div>
+				<div class="img"></div>
+				<div class="img"></div>
+				<div class="img"></div>
+			</div>
+			<div class="item_list">
+				<div class="img"></div>
+				<div class="img"></div>
+				<div class="img"></div>
+				<div class="img"></div>
+			</div>
+			<div class="btn">
+				<div class="prev" id="prev"><</div>
+				<div class="next" id="next">></div>
+			</div>
+		</div>
+	</body>
+</html>
